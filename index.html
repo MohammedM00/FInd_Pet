@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Older Dogs</title>
+</head>
+<body>
+    <h1>Find Dogs</h1>
+
+    <!-- Label for the input field -->
+    <label for="minAgeInput">Please enter the minimum age for the dog:</label>
+    
+    <!-- Input field for the user to enter the minimum age -->
+    <input type="number" id="minAgeInput" placeholder="Enter age in years">
+
+    <!-- Button to trigger the search -->
+    <button onclick="findOlderDogs()">Find Dogs</button>
+
+    <!-- Result will be displayed here -->
+    <div id="result"></div>
+
+    <script>
+        function findOlderDogs() {
+            // Get the minimum age entered by the user
+            const minAge = parseInt(document.getElementById('minAgeInput').value);
+
+            // Check if minAge is a valid number
+            if (isNaN(minAge)) {
+                document.getElementById('result').textContent = 'Please enter a valid age.';
+                return;
+            }
+
+            // Sample dog data (you can replace this with your data)
+            const dogs = [
+                { name: "Dog1", age: 5 },
+                { name: "Dog2", age: 3 },
+                { name: "Dog3", age: 7 },
+                { name: "Dog4", age: 2 },
+            ];
+
+            // Create an array to store selected dog objects
+            const selectedDogs = [];
+
+            // Use forEach to find and add dogs to the selectedDogs array
+            dogs.forEach(dog => {
+                if (dog.age > minAge) {
+                    selectedDogs.push(dog);
+                }
+            });
+
+            // Display the dog information on the web page
+            displayDogs(selectedDogs, minAge);
+        }
+
+        // Function to display the list of dogs
+        function displayDogs(dogs, minAge) {
+            const resultDiv = document.getElementById('result');
+
+            if (dogs.length === 0) {
+                resultDiv.textContent = 'No dogs found matching the criteria.';
+            } else {
+                // Format and display dog information
+                const dogInfo = dogs.map(dog => `${dog.name} (Age: ${dog.age} years)`).join(', ');
+                resultDiv.textContent = `Dogs older than ${minAge} years: ${dogInfo}`;
+            }
+        }
+    </script>
+</body>
+</html>
